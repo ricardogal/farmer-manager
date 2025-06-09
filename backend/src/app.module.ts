@@ -20,7 +20,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
       password: process.env.DB_PASS || 'postgres',
       database: process.env.DB_NAME || 'farmer_manager',
       autoLoadEntities: true,
-      synchronize: true, // Em produção, usar migrations!
+      synchronize: true,
     }),
     ProdutoresModule,
     PropriedadesModule,
