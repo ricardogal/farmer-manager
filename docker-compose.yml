@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: farmer_manager
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - farmer-net
+
+  backend:
+    build:
+      context: ./backend
+    command: npm run start:dev
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules # impede sobreposição
+    working_dir: /usr/src/app
+    ports:
+      - '3000:3000'
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASS: postgres
+      DB_NAME: farmer_manager
+    depends_on:
+      - db
+    networks:
+      - farmer-net
+
+volumes:
+  pgdata:
+
+networks:
+  farmer-net:
+    driver: bridge
