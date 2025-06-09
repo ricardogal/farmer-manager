@@ -1,0 +1,146 @@
+{
+  "info": {
+    "name": "Farmer Manager API",
+    "_postman_id": "b1e1e1e1-1111-2222-3333-444444444444",
+    "description": "Coleção para testar a API Farmer Manager",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Produtores",
+      "item": [
+        {
+          "name": "Criar Produtor",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Produtor Exemplo\",\n  \"cpfCnpj\": \"12345678909\"\n}"
+            },
+            "url": { "raw": "http://localhost:3000/produtores", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["produtores"] }
+          }
+        },
+        {
+          "name": "Listar Produtores",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:3000/produtores", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["produtores"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Propriedades",
+      "item": [
+        {
+          "name": "Criar Propriedade",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Fazenda Exemplo\",\n  \"cidade\": \"Cidade Exemplo\",\n  \"estado\": \"MG\",\n  \"areaTotal\": 100,\n  \"areaAgricultavel\": 60,\n  \"areaVegetacao\": 40,\n  \"produtorId\": \"{{produtorId}}\"\n}"
+            },
+            "url": { "raw": "http://localhost:3000/propriedades", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["propriedades"] }
+          }
+        },
+        {
+          "name": "Listar Propriedades",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:3000/propriedades", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["propriedades"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Safras",
+      "item": [
+        {
+          "name": "Criar Safra",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ano\": \"2024\",\n  \"propriedadeId\": \"{{propriedadeId}}\"\n}"
+            },
+            "url": { "raw": "http://localhost:3000/safras", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["safras"] }
+          }
+        },
+        {
+          "name": "Listar Safras",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:3000/safras", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["safras"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Culturas Plantadas",
+      "item": [
+        {
+          "name": "Criar Cultura Plantada",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Soja\",\n  \"safraId\": \"{{safraId}}\"\n}"
+            },
+            "url": { "raw": "http://localhost:3000/culturas", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["culturas"] }
+          }
+        },
+        {
+          "name": "Listar Culturas Plantadas",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:3000/culturas", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["culturas"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Total de Fazendas",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:3000/dashboard/total-fazendas", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["dashboard", "total-fazendas"] }
+          }
+        },
+        {
+          "name": "Total de Hectares",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:3000/dashboard/total-hectares", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["dashboard", "total-hectares"] }
+          }
+        },
+        {
+          "name": "Pizza por Estado",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:3000/dashboard/pizza-por-estado", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["dashboard", "pizza-por-estado"] }
+          }
+        },
+        {
+          "name": "Pizza por Cultura",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:3000/dashboard/pizza-por-cultura", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["dashboard", "pizza-por-cultura"] }
+          }
+        },
+        {
+          "name": "Pizza por Uso do Solo",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:3000/dashboard/pizza-por-uso-solo", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["dashboard", "pizza-por-uso-solo"] }
+          }
+        }
+      ]
+    }
+  ]
+}
