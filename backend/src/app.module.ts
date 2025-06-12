@@ -27,7 +27,12 @@ import { AuthModule } from './auth/auth.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    ThrottlerModule.forRoot(),
+    ThrottlerModule.forRoot({
+      throttlers: [{
+        ttl: 60000,
+        limit: 10
+      }]
+    }),
     ProdutoresModule,
     PropriedadesModule,
     SafrasModule,
