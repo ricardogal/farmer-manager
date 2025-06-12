@@ -8,6 +8,11 @@ import { PropriedadesModule } from './propriedades/propriedades.module';
 import { SafrasModule } from './safras/safras.module';
 import { CulturasModule } from './culturas/culturas.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerGuard } from '@nestjs/throttler';
+import { RolesGuard } from './auth/roles.guard';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -22,13 +27,19 @@ import { DashboardModule } from './dashboard/dashboard.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    ThrottlerModule.forRoot(),
     ProdutoresModule,
     PropriedadesModule,
     SafrasModule,
     CulturasModule,
     DashboardModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
+    { provide: APP_GUARD, useClass: RolesGuard },
+  ],
 })
 export class AppModule {}
