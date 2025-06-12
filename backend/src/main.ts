@@ -12,6 +12,13 @@ async function bootstrap() {
     .setTitle('Farmer Manager API')
     .setDescription('API para gestão de produtores rurais, propriedades, safras e culturas.')
     .setVersion('1.0')
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      description: 'Insira o token JWT obtido no /auth/login',
+      in: 'header',
+    })
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

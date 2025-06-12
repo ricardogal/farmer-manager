@@ -15,13 +15,7 @@ services:
       - farmer-net
 
   backend:
-    build:
-      context: ./backend
-    command: npm run start:dev
-    volumes:
-      - ./backend:/usr/src/app
-      - /usr/src/app/node_modules # impede sobreposição
-    working_dir: /usr/src/app
+    build: ./backend
     ports:
       - '3000:3000'
     environment:
@@ -30,22 +24,8 @@ services:
       DB_USER: postgres
       DB_PASS: postgres
       DB_NAME: farmer_manager
-      JWT_SECRET: sua_chave_secreta_muito_segura_123
-    depends_on:
-      - db
-    networks:
-      - farmer-net
-
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: always
-    ports:
-      - '5050:80'
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
+    env_file:
+      - ./backend/.env.prod
     depends_on:
       - db
     networks:
@@ -53,8 +33,7 @@ services:
 
 volumes:
   pgdata:
-  pgadmin_data:
 
 networks:
   farmer-net:
-    driver: bridge
+    driver: bridge 

@@ -4,8 +4,9 @@ import { CreateSafraDto } from './dto/create-safra.dto/create-safra.dto';
 import { validate } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ApiOperation, ApiBody, ApiResponse, ApiParam } from '@nestjs/swagger';
+import { ApiOperation, ApiBody, ApiResponse, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @Controller('safras')
 export class SafrasController {
