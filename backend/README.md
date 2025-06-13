@@ -14,16 +14,34 @@ Este projeto foi desenvolvido com foco em qualidade, escalabilidade, clareza e e
 - **Docker + Docker Compose** — Deploy e ambiente padronizado
 - **Testes automatizados** — Estrutura pronta para unitários e integrados
 
+---
+
+## 📖 Como usar o Swagger
+
+1. **Acesse o Swagger:**
+   - Local: [http://localhost:3000/docs](http://localhost:3000/docs)
+   - Produção: [https://farmer-manager.onrender.com/api](https://farmer-manager.onrender.com/api)
+2. **Faça login:**
+   - Use o endpoint `/auth/login` com um usuário válido (exemplo: `admin@farmermanager.com` / `teste123`)
+   - Copie o token JWT retornado.
+3. **Clique em "Authorize":**
+   - No topo direito do Swagger, clique no botão "Authorize" (ícone de cadeado).
+   - Cole o token JWT (apenas o token, sem o prefixo "Bearer ").
+   - Confirme.
+4. **Teste os endpoints protegidos:**
+   - Agora você pode testar qualquer rota protegida diretamente pelo Swagger!
+
+---
+
 ## 🏗️ Como Executar o Projeto
 
-### Ambiente de Desenvolvimento (local/dev)
+### Usando Docker (recomendado)
 
 1. **Clone o repositório**
    ```bash
    git clone <url-do-repositorio>
    cd farmer-manager
    ```
-
 2. **Configure o ambiente**
    Crie um arquivo `.env` na pasta `backend` com o seguinte conteúdo:
    ```
@@ -32,55 +50,57 @@ Este projeto foi desenvolvido com foco em qualidade, escalabilidade, clareza e e
    DB_USER=postgres
    DB_PASS=postgres
    DB_NAME=farmer_manager
+   JWT_SECRET=sua_chave_secreta
    ```
-
 3. **Suba tudo com Docker Compose (dev)**
    ```bash
    docker compose up --build
    ```
    - Hot reload, volumes mapeados, ideal para desenvolvimento.
-
 4. **Acesse o Swagger**
-   - [http://localhost:3000/api](http://localhost:3000/api)
+   - [http://localhost:3000/docs](http://localhost:3000/docs)
 
----
-
-### Ambiente de Produção
+#### Produção
 
 1. **Configure variáveis de ambiente de produção**
    - Use um arquivo `.env` com as credenciais e configurações do ambiente de produção.
-
 2. **Suba com o compose de produção**
    ```bash
    docker compose -f docker-compose.prod.yml up --build
    ```
    - Imagem enxuta, sem volumes de código, apenas arquivos compilados.
-   - Pronto para deploy em cloud, VPS, etc.
-
 3. **Acesse o Swagger**
    - [http://localhost:3000/api](http://localhost:3000/api)
-   - Ou, se deploy online: [https://farmer-manager.onrender.com/api](https://farmer-manager.onrender.com/api)
 
 ---
 
-#### Comandos úteis dentro do container (opcional):
-Se quiser rodar comandos manuais, entre no container backend:
-```bash
-docker compose exec backend sh
-```
-E então:
-- Rodar seed novamente: `npm run seed`
-- Rodar migrations: `npm run migration:run`
-- Rodar testes: `npm test`
+### Rodando Localmente (sem Docker)
 
----
-
-## 🧑‍💻 Diferenciais do Projeto
-- **Validações robustas**: CPF/CNPJ, áreas, relacionamentos e regras de negócio garantidas tanto no backend quanto na documentação.
-- **Documentação autoexecutável**: Teste todos os endpoints diretamente pelo Swagger, sem necessidade de Postman.
-- **Arquitetura limpa e escalável**: Separação clara de responsabilidades, fácil manutenção e extensibilidade.
-- **Pronto para produção**: Docker, variáveis de ambiente, seed de dados e testes.
-- **Código limpo e comentado**: Foco em legibilidade, clareza e boas práticas.
+1. **Pré-requisitos:**
+   - Node.js 20+
+   - PostgreSQL 15+
+2. **Clone o repositório**
+   ```bash
+   git clone <url-do-repositorio>
+   cd farmer-manager/backend
+   ```
+3. **Instale as dependências**
+   ```bash
+   npm install
+   ```
+4. **Configure o banco de dados**
+   - Crie um banco chamado `farmer_manager` no seu PostgreSQL
+   - Ajuste o arquivo `.env` conforme necessário
+5. **Rode as migrations**
+   ```bash
+   npm run migration:run
+   ```
+6. **Rode o projeto**
+   ```bash
+   npm run start:dev
+   ```
+7. **Acesse o Swagger**
+   - [http://localhost:3000/docs](http://localhost:3000/docs)
 
 ---
 
@@ -104,6 +124,7 @@ Todos os exemplos de payloads e responses estão disponíveis diretamente na int
 - `GET /dashboard/pizza-por-estado` — Gráfico por estado
 - `GET /dashboard/pizza-por-cultura` — Gráfico por cultura
 - `GET /dashboard/pizza-por-uso-solo` — Gráfico por uso do solo
+- `GET /health` — Health check da API
 
 ---
 
